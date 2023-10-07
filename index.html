@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-----</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="one">
+        <div class="head">
+           1. To create ,alter and drop tables with integrity constraints
+        </div>
+        <div class="prog">
+            SQL> create table student(stu_name varchar(20),stu_id number(20),dep_id number(10));
+            <br> 
+            SQL> create table faculty(fac_name varchar(20) NOT NULL,fac_id number(10),dep_id number(10)primary key);
+            <br> 
+            SQL> create table department(dep_name varchar(20),dep_id number(10),CONSTRAINT dep_id_fk foreign key(dep_id)referencesfaculty(dep_id));
+            <br>
+            SQL> desc department
+            <br>
+            SQL> insert into student values('&stu_name','&stu_id','&dep_id');
+            <br>
+            SQL> /
+            <br>
+            SQL> insert into faculty values('&fac_name','&fac_id','&dep_id');
+            <br>
+            SQL> /
+            <br>
+            SQL> select * from faculty;
+            <br>
+            SQL> select * from student;
+            <br>
+            SQL> insert into department values('&dep_name','&dep_id');
+            <br>
+            SQL> /
+            <br>
+            SQL> select * from department;
+            <br>
+            SQL> alter table faculty add email varchar(255);
+            <br>
+            SQL> desc faculty;
+            <br>
+            SQL> alter table faculty drop column email;
+            <br>
+            SQL> desc faculty;
+        </div>
+    </div>
+    <div class="two">
+        <div class="head">
+            2. Implementation of DML commands of SQL to Insert,Update,Delete of data form a database (TO DEMONSTRATE THE RETRIEVAL AND
+            MODIFICATION OF DATA FROM DATABASE USING SQL)
+         </div>
+         <div class="prog">
+             SQL> create table student(stu_name varchar(20),stu_id number(20),dep_id number(10));
+             <br> 
+             SQL> create table faculty(fac_name varchar(20) NOT NULL,fac_id number(10),dep_id number(10)primary key);
+             <br> 
+             SQL> create table department(dep_name varchar(20),dep_id number(10),CONSTRAINT dep_id_fk foreign key(dep_id)references faculty(dep_id));
+             <br>
+             SQL> insert into student values('&stu_name','&stu_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into faculty values('&fac_name','&fac_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into department values('&dep_name','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> select * from student where dep_id='10';
+             <br>
+             <u>Modification Command :Alter and update</u>
+             <br>
+             SQL> update student setstu_name='Jack',dep_id='12' where stu_id=1;
+             <br>
+             SQL> select * from student;
+             <br>
+             <u>Retrieve command</u>
+             <br>
+             SQL> select stu_id,stu_name from student where dep_id=10;
+             <br>
+         </div>
+    </div>
+    <div class="three">
+        <div class="head">
+            3. To demonstrate the application of single row
+            function in SQL
+         </div>
+         <div class="prog">
+             SQL> create table student(stu_name varchar(20),stu_id number(20),dep_id number(10));
+             <br> 
+             SQL> create table faculty(fac_name varchar(20) NOT NULL,fac_id number(10),dep_id number(10)primary key);
+             <br> 
+             SQL> create table department(dep_name varchar(20),dep_id number(10),CONSTRAINT dep_id_fk foreign key(dep_id)referencesfaculty(dep_id));
+             <br>
+             SQL> insert into student values('&stu_name','&stu_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into faculty values('&fac_name','&fac_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into department values('&dep_name','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> update faculty set fac_address='coimbatore' where fac_id=22;
+             <br>
+             SQL> update faculty set fac_address='Madurai' where fac_id=17;
+             <br>
+             SQL> select * from faculty;
+             <br>
+             SQL> select upper(fac_name) from faculty;
+             <br>
+             SQL> select initcap(fac_address) from faculty;
+             <br>
+             SQL> select concat(fac_name,fac_address) from faculty;
+             <br>
+             SQL> select substr(fac_name,1,5),instr(fac_name,'e') from faculty;
+             <br>
+             SQL> select rpad(fac_name,5,'_')||lpad(fac_address,10,'_') from faculty;
+             <br>
+             SQL> select rpad(fac_name,15,'_')||lpad(fac_address,15,'_') from faculty;
+             <br>
+         </div>
+    </div>
+    <div class="four">
+        <div class="head">
+            4. Implementation of different types of Joins - Inner Join, Outer Join, Natural Join. (TO DEMONSTRATE THE APPLICATION OF GROUP
+            FUNCTIONS IN SQL)
+         </div>
+         <div class="prog">
+             SQL> create table student(stu_name varchar(20),stu_id number(20),dep_id number(10));
+             <br> 
+             SQL> create table faculty(fac_name varchar(20) NOT NULL,fac_id number(10),dep_id number(10)primary key);
+             <br> 
+             SQL> create table department(dep_name varchar(20),dep_id number(10),CONSTRAINT dep_id_fk foreign key(dep_id)referencesfaculty(dep_id));
+             <br>
+             SQL> insert into student values('&stu_name','&stu_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into faculty values('&fac_name','&fac_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into department values('&dep_name','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> select * from faculty;
+             <br>
+             <u>GROUPBY FUNCTIONS</u>
+             <br>
+             SQL> select count(fac_id),fac_name from faculty group by fac_name order by count(fac_id) asc;
+             <br>
+             <u>counts all rows in a table</u>
+             <br>
+             SQL> SELECT COUNT(*) FROM STUDENT;
+             <br>
+             COUNT(*)
+             <br>
+             <u>For Employee Database</u>
+             <br>
+             SELECT Employee_ID, Last_Name, First_Name, Salary
+             <br>
+             FROM employees
+             <br>
+             WHERE Salary >= 25000;
+             <br>
+             <b>The below SELECT query counts the number of employees in the organization.</b>
+             <br>
+             SELECT COUNT(*) Count
+             <br>
+             FROM employees;
+             <br>
+             <b>The below SELECT query returns the average of the salaries of employees in the organization.</b>
+             <br>
+             SELECT AVG(Salary) average_sal
+             <br>
+             FROM employees;
+             <br>
+             <b>The below SELECT query returns the sum of the salaries of employees in the organization</b>
+             <br>
+             SELECT SUM(Salary) total_sal
+             <br>
+             FROM employees;
+         </div>
+    </div>
+    <div class="five">
+        <div class="head">
+            5. To demonstrate the application of querying
+            multiple tables in SQL 
+         </div>
+         <div class="prog">
+             SQL> create table employee(emp_name varchar2(20),city varchar2(20));
+             <br> 
+             SQL>create table employee_salary(emp_name varchar2(20),department varchar2(20),salary number(10));
+             <br> 
+             SQL> insert into employee values('&emp_name','&city');
+             <br>
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL>insert into employee_salary values('&emp_name','&department','&salary');
+             <br>
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL> select * from employee_salary;
+             <br>
+             SQL> select * from employee;
+             <br>
+             SQL> select employee.emp_name,employee_salary.salary from employee inner join employee_salary on employee.emp_name=employee_salary.emp_name;
+             <br>
+             SQL> select employee.emp_name,employee_salary.salary from employee left outer join employee_salary on employee.emp_name=employee_salary.emp_name;
+             <br>
+             SQL> select employee.emp_name,employee_salary.salary from employee right outer join employee_salary on employee.emp_name=employee_salary.emp_name;
+             <br>
+             SQL> select employee.emp_name,employee_salary.salary from employee full outer join employee_salary on employee.emp_name=employee_salary.emp_name;
+             <br>
+             SQL> select * from employee natural join employee_salary;
+             <br>
+         </div>
+    </div>
+    <div class="six">
+        <div class="head">
+            6. To demonstrate the application of different types of constraints ( TO DEMONSTRATE THE APPLICATION OF SQL )
+         </div>
+         <div class="prog">
+             SQL> create table student(stu_name varchar(20),stu_id number(20),dep_id number(10));
+             <br> 
+             SQL> create table faculty(fac_name varchar(20) NOT NULL,fac_id number(10),dep_id number(10)primary key);
+             <br> 
+             SQL> create table department(dep_name varchar(20),dep_id number(10),CONSTRAINT dep_id_fk foreign key(dep_id)referencesfaculty(dep_id));
+             <br>
+             SQL> insert into student values('&stu_name','&stu_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into faculty values('&fac_name','&fac_id','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> insert into department values('&dep_name','&dep_id');
+             <br>
+             SQL> /
+             <br>
+             SQL> select * from faculty;
+             <br>
+         </div>
+    </div>
+    <div class="seven">
+        <div class="head">
+            7. To demonstrate the application of view in SQL
+         </div>
+         <div class="prog">
+             SQL> create table library(sno number(10),title varchar2(20),authorname varchar2(20),price number(10));
+             <br> 
+             SQL> insert into library values('&sno','&title','&authorname','&price');
+             <br> 
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL> /
+             <br>
+             SQL> select * from library
+             <br>
+             SQL> select * from library;
+             <br>
+             SQL> desc library;
+             <br>
+             SQL> create view v_book1 as select * from library;
+             <br>
+             SQL> select * from v_book1;
+             <br>
+             SQL> create view v_book2 as select * from library;
+             <br>
+             SQL> select * from v_book2;
+             <br>
+             SQL> drop table library;
+             <br>
+             SQL> drop view v_book1;
+             <br>
+             SQL> select * from v_book1;
+             <br>
+         </div>
+    </div>
+    <div class="eight">
+        <div class="head">
+            8. To understand the utility and structure of PL/SQL programs 
+         </div>
+         <div class="prog">
+            <pre>
+            DECLARE
+                p number :=20; --global variables
+                q number :=30;
+            BEGIN
+                dbms_output.put_line('Global variable p:' || p);
+                dbms_output.put_line('Global variable q:' || q);
+                DECLARE
+                p number :=102; --local variables
+                q number :=130;
+                BEGIN
+                dbms_output.put_line('Local variable p:' || p);
+                dbms_output.put_line('Local variable q:' || q);
+                END;
+            END;
+            /
+            set serveroutput on
+            /
+            </pre>
+         </div>
+    </div>
+    <div class="nine">
+        <div class="head">
+            9. To demonstrate the Implementation of SQL  Triggers  
+         </div>
+         <div class="prog">
+            <pre>
+                CREATE OR REPLACE TRIGGER display_salary_changes
+                BEFORE DELETE OR INSERT OR UPDATE ON customers
+                FOR EACH ROW
+                WHEN (NEW.ID > 0)
+                DECLARE
+                  sal_diff number;
+                BEGIN
+                  sal_diff := :NEW.salary - :OLD.salary;
+                  dbms_output.put_line('Old salary: ' || :OLD.salary);
+                  dbms_output.put_line('New salary: ' || :NEW.salary);
+                  dbms_output.put_line('Salary difference: ' || sal_diff);
+                END;
+                /
+
+                    Trigger created.
+
+                INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (7, 'Kriti', 22, 'HP', 7500.00 );
+
+                    Old salary:
+                    New salary: 7500
+                    Salary difference:
+
+                UPDATE customers
+                SET salary = salary + 500
+                WHERE id = 2;
+
+                    Old salary: 1500
+                    New salary: 2000
+                    Salary difference: 500
+
+            </pre>
+         </div>
+    </div>
+    <div class="ten">
+        <div class="head">
+            10. TO UNDERSTAND THE STRUCTURE AND APPLICATION OF CURSOR IN PL/SQL      
+        </div>
+         <div class="prog">
+            <pre>
+                DECLARE
+                    c_id customers.id%type;
+                    c_name customers.name%type;
+                    c_addr customers.address%type;
+                    CURSOR c_customers is
+                       SELECT id, name, address FROM customers;
+                  BEGIN
+                    OPEN c_customers;
+                    LOOP
+                      FETCH c_customers into c_id, c_name, c_addr;
+                      EXIT WHEN c_customers%notfound;
+                      dbms_output.put_line(c_id || ' ' || c_name || ' ' || c_addr);
+                    END LOOP;
+                    CLOSE c_customers;
+                  END;
+                  /
+                  set serveroutput on
+                  /
+
+                Output:
+                1 Ramesh Allahabad
+                2 Suresh Kanpur
+                3 Mahesh Ghaziabad
+                4 Chandan Noida
+                5 Alex Paris
+                6 Sunita Delhi
+
+                PL/SQL procedure successfully completed.
+                
+            </pre>
+         </div>
+    </div>
+</body>
+</html>
